@@ -12,6 +12,6 @@ He deserves all the credit for this. All i did was convert the Visual Basic Code
 The C# code is above my head, don't ask me for changes.
 
 ## **Dependencies**
-You'll need ExifTool by Phil Harvey to read out the Metadata.
+You'll need ExifTool by Phil Harvey to read out the metadata.
 
 
