@@ -96,7 +96,7 @@ function Save-MaxThumbnail {
                     IntPtr hbitmap = IntPtr.Zero;
                     Guid uuid = new Guid("43826d1e-e718-42ee-bc55-a1e261c37bfe");
                     UnsafeNativeMethods.SHCreateItemFromParsingName(filename, IntPtr.Zero, uuid, out ppsi);
-                    ((IShellItemImageFactory)ppsi).GetImage(new SIZE(0x100, 0x100), SIIGBF.SIIGBF_RESIZETOFIT, out hbitmap);
+                    ((IShellItemImageFactory)ppsi).GetImage(new SIZE(0x200, 0x200), SIIGBF.SIIGBF_RESIZETOFIT, out hbitmap);
                     Bitmap bs = Bitmap.FromHbitmap(hbitmap);
                     return bs;
                 }
