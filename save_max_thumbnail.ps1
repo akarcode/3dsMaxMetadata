@@ -4,7 +4,6 @@
 
 
 $MaxFile = 'D:\Folder\File.max'
-$OutputPNG = 'D:\Folder\Thumbnail.png'
 
 
 function Save-MaxThumbnail {
@@ -126,6 +125,7 @@ function Save-MaxThumbnail {
 
     # grab thumbnail
     $Thumbnail = $CSharpInstance.GetThumbnail($MaxFile)
+    $OutputPNG = [IO.Path]::ChangeExtension($MaxFile, 'png')
     $Thumbnail.Save($OutputPNG)
 
 }
