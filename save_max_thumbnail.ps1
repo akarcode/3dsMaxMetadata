@@ -9,8 +9,7 @@ $MaxFile = 'D:\Folder\File.max'
 function Save-MaxThumbnail {
 
     param (
-        [Parameter(Mandatory)][string]$MaxFile,
-        [Parameter(Mandatory)][string]$OutputPNG
+        [Parameter(Mandatory)][string]$MaxFile
     )
 
 
@@ -131,6 +130,6 @@ function Save-MaxThumbnail {
 }
 
 
-Save-MaxThumbnail -MaxFile $MaxFile -OutputPNG $OutputPNG
+Save-MaxThumbnail -MaxFile $MaxFile
 
 
