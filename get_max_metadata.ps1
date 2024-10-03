@@ -3,7 +3,7 @@ $ExifTool = 'C:\Folder\exiftool.exe'
 $MaxFile = 'C:\Folder\File.max'
 
 
-function Get-MaxInfo {
+function Get-MaxMetadata {
 
     param (
         [Parameter(Mandatory)][string]$ExifTool,
@@ -123,41 +123,79 @@ function Get-MaxInfo {
 }
 
 
-$Collection = Get-MaxInfo -ExifTool $ExifTool -MaxFile $MaxFile
+function Write-MaxMetadata {
 
+    param (
+        [Parameter(Mandatory)][System.Collections.SortedList]$Collection
+    )
 
-# neatly output result
-foreach ($Entry in $Collection.Keys) {
+    $OutputText = @()
 
-    $Type = if ($Collection[$Entry] -is [System.Collections.SortedList]) {
+    # neatly output result
+    foreach ($Entry in $Collection.Keys) {
+
+        $Type = if ($Collection[$Entry] -is [System.Collections.SortedList]) {
     
-        'List'
+            'List'
         
-    } elseif ($Collection[$Entry] -is [object[]]) {
+        } elseif ($Collection[$Entry] -is [object[]]) {
     
-        'Array'
+            'Array'
         
+        }
+
+
+        if ($Collection[$Entry] -ne 'Empty') { 
+            
+            $Line = "$Entry ($Type, $($Collection[$Entry].Count))"
+            Write-Host $Line -ForegroundColor Yellow
+            $OutputText += $Line
+        
+        } else {
+            
+            $Line = "$Entry (Empty)"
+            Write-Host $Line -ForegroundColor Yellow
+            $OutputText += $Line
+        
+        }
+
+
+        switch ($Type) {
+
+            'List' { foreach ($Item in $Collection[$Entry].GetEnumerator()) { 
+                    
+                    $Line = "    {0,-18} : {1}" -f $Item.Key, $Item.Value
+                    Write-Host $Line
+                    $OutputText += $Line
+                    
+                }
+            }
+
+            'Array' { foreach ($Item in $Collection[$Entry]) {
+                    
+                    $Line = "    {0}" -f $Item
+                    Write-Host $Line
+                    $OutputText += $Line
+                    
+                }
+            }
+        }
+    
+        Write-Host ''
+        $OutputText += ''
+
     }
 
-
-    if ($Collection[$Entry] -ne 'Empty') { 
-        
-        Write-Host "$Entry ($Type, $($Collection[$Entry].Count))" -ForegroundColor Yellow
-        
-    } else {
-    
-        Write-Host "$Entry (Empty)" -ForegroundColor Yellow
-        
-    }
-
-
-    switch ($Type) {
-
-        'List' { foreach ($Item in $Collection[$Entry].GetEnumerator()) { "    {0,-18} : {1}" -f $Item.Key, $Item.Value } }
-        'Array' { foreach ($Item in $Collection[$Entry]) { "    {0}" -f $Item } }
-
-    }
-
-    ''
+    return $OutputText
 
 }
+
+
+$Collection = Get-MaxMetadata -ExifTool $ExifTool -MaxFile $MaxFile
+
+$OutputText = Write-MaxMetadata $Collection
+
+$OutputPath = [IO.Path]::ChangeExtension($MaxFile, 'txt')
+[IO.File]::WriteAllLines($OutputPath, $OutputText)
+
+
