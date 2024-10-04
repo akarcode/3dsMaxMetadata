@@ -1,4 +1,5 @@
 # 3ds Max Metadata reader and Thumbnail saver
+![screenshot](https://github.com/user-attachments/assets/ba738497-6a08-4be9-ba6c-fbd08fdea05a)
 
 ## **Get-MaxMetadata**
 The functions can be used for 3ds Max automation. The metadata reader function is a Command-line version of **MaxFind.exe** or within 3ds Max **File>File Properties...**.
