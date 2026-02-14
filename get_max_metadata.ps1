@@ -46,7 +46,7 @@ function Get-MaxMetadata {
 
                 if ($CurrentName -eq 'Title Of Parts') {
 
-                    $AllItems = $CurrentValue.Split(',').Trim()
+                    $AllItems = ($CurrentValue -split ', ').Trim()
 
                 } else {
 
@@ -197,5 +197,6 @@ $OutputText = Write-MaxMetadata $Collection
 
 $OutputPath = [IO.Path]::ChangeExtension($MaxFile, 'txt')
 [IO.File]::WriteAllLines($OutputPath, $OutputText)
+
 
 
