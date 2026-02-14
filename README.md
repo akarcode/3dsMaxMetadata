@@ -28,6 +28,10 @@ You'll need ExifTool by Phil Harvey to read out the metadata.
 
 ## Changelog
 
+v1.0.2
+
+- Added support for newer Max versions.
+
 v1.0.1
 
 - Wrapped host output into a function.
