@@ -30,7 +30,7 @@ You'll need ExifTool by Phil Harvey to read out the metadata.
 
 v1.0.2
 
-- Added support for newer Max versions.
+- Added support for 3ds Max 2025+
 
 v1.0.1
 
